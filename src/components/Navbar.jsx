@@ -1,125 +1,148 @@
-import { Link, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { X, Menu } from 'lucide-react';
 
 function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const location = useLocation()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
-  const isActive = (path) => location.pathname === path
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   return (
-    <nav className="bg-white border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link to="/" className="text-xl font-semibold text-gray-900">
-              Aseryx
-            </Link>
-          </div>
-          
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            <Link
-              to="/"
-              className={`px-4 py-2 rounded-md transition ${
-                isActive('/') 
-                  ? 'bg-gray-900 text-white' 
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              Home
-            </Link>
-            <Link
-              to="/members"
-              className={`px-4 py-2 rounded-md transition ${
-                isActive('/members') 
-                  ? 'bg-black text-white' 
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              Members
-            </Link>
-            <Link
-              to="/partners"
-              className={`px-4 py-2 rounded-md transition ${
-                isActive('/partners') 
-                  ? 'bg-black text-white' 
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              Research Partners
-            </Link>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+    <header className="fixed top-0 w-full z-50">
+      <div className="w-full bg-transparent">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex h-20 items-center justify-between">
+            {/* Mobile menu button */}
             <button
               type="button"
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 hover:text-gray-900 focus:outline-none"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="md:hidden p-2 rounded-lg bg-[#fc5f2b] hover:bg-[#f7861e]/90 transition-all duration-200 shadow-lg"
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {isOpen ? (
-                  <path d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              <Menu className="w-5 h-5 text-black " />
             </button>
+
+            {/* Desktop navigation */}
+            <nav className="hidden md:flex items-center justify-center flex-1">
+              <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-3 flex items-center space-x-3 shadow-2xl border border-white/20 transition-all duration-500">
+                {/* Home */}
+                <Link
+                  to="/"
+                  className={`px-6 py-3 font-semibold transition-all text-sm relative overflow-hidden rounded-lg ${
+                    location.pathname === '/'
+                      ? 'bg-[#fc5f2b] text-white  shadow-lg'
+                      : 'text-black  hover:bg-[#f7861e]/20'
+                  }`}
+                >
+                  <span className="relativez-10">Home</span>
+                </Link>
+
+                {/* Members */}
+                <Link
+                  to="/members"
+                  className={`px-6 py-3 font-semibold transition-all text-sm relative overflow-hidden rounded-lg ${
+                    location.pathname === '/members'
+                      ? 'bg-[#fc5f2b] text-white  shadow-lg'
+                      : 'text-black  hover:bg-[#f7861e]/20'
+                  }`}
+                >
+                  <span className="relative  z-10">Members</span>
+                </Link>
+
+                {/* Partners */}
+                <Link
+                  to="/partners"
+                  className={`px-6 py-3 font-semibold transition-all text-sm relative overflow-hidden rounded-lg ${
+                    location.pathname === '/partners'
+                      ? 'bg-[#fc5f2b] text-white  shadow-lg'
+                      : 'text-black  hover:bg-[#f7861e]/20'
+                  }`}
+                >
+                  <span className="relative z-10">Research Partners</span>
+                </Link>
+              </div>
+            </nav>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link
-              to="/"
-              className={`block px-3 py-2 rounded-md ${
-                isActive('/') 
-                  ? 'bg-gray-900 text-white' 
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-              onClick={() => setIsOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              to="/members"
-              className={`block px-3 py-2 rounded-md ${
-                isActive('/members') 
-                  ? 'bg-blue-500 text-white' 
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-              onClick={() => setIsOpen(false)}
-            >
-              Members
-            </Link>
-            <Link
-              to="/partners"
-              className={`block px-3 py-2 rounded-md ${
-                isActive('/partners') 
-                  ? 'bg-blue-500 text-white' 
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-              onClick={() => setIsOpen(false)}
-            >
-              Research Partners
-            </Link>
+      {/* Minimal Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-white/60 backdrop-blur-sm"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+
+          {/* Menu */}
+          <div className="absolute right-0 top-0 h-full w-72 bg-white/95 backdrop-blur-xl rounded-l-3xl shadow-2xl border border-white/20">
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-white/20 bg-white/10">
+              <h2 className="text-xl font-semibold text-gray-900">Menu</h2>
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2 rounded-lg hover:bg-white/20 transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-600" />
+              </button>
+            </div>
+
+            {/* Navigation */}
+            <nav className="p-6 space-y-2">
+              <Link
+                to="/"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 backdrop-blur-sm ${
+                  location.pathname === '/'
+                    ? 'bg-[#DDFC4E] text-black shadow-lg border-[#DDFC4E]/80'
+                    : 'text-gray-900 hover:bg-[#DDFC4E]/20 border border-white/20'
+                }`}
+              >
+                <span className="font-medium">Home</span>
+              </Link>
+
+              <Link
+                to="/members"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 backdrop-blur-sm ${
+                  location.pathname === '/members'
+                    ? 'bg-[#DDFC4E] text-black shadow-lg border-[#DDFC4E]/80'
+                    : 'text-gray-900 hover:bg-[#DDFC4E]/20 border border-white/20'
+                }`}
+              >
+                <span className="font-medium">Members</span>
+              </Link>
+
+              <Link
+                to="/partners"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 backdrop-blur-sm ${
+                  location.pathname === '/partners'
+                    ? 'bg-[#DDFC4E] text-black shadow-lg border-[#DDFC4E]/80'
+                    : 'text-gray-900 hover:bg-[#DDFC4E]/20 border border-white/20'
+                }`}
+              >
+                <span className="font-medium">Research Partners</span>
+              </Link>
+            </nav>
           </div>
         </div>
       )}
-    </nav>
-  )
+    </header>
+  );
 }
 
 export default Navbar
+

@@ -1,185 +1,159 @@
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import testImg from '../public/test.jpg';
+
 function Partners() {
+  const [activeCard, setActiveCard] = useState(0);
+  const [rotatingIndex, setRotatingIndex] = useState(0);
+
+  const rotatingWords = ['Ethically', 'At Scale', 'Securely', 'Transparently', 'Compliantly'];
+
+  const dataCards = [
+    { metric: '24', unit: 'ng/dL', title: 'Vitamin D', description: 'Checks for deficiencies, which can impact the immune system, thyroid, bones, teeth, muscles, and brain.', dataPoints: [22, 20, 24], dates: ['Jan 10', 'Jun 11', 'Jan 12'], gradient: 'from-blue-400/20 to-cyan-400/20' },
+    { metric: '98', unit: 'mg/dL', title: 'Blood Glucose', description: 'Monitors blood sugar levels to assess diabetes risk and metabolic health.', dataPoints: [95, 102, 98], dates: ['Feb 5', 'May 8', 'Aug 10'], gradient: 'from-green-400/20 to-emerald-400/20' },
+    { metric: '72', unit: 'bpm', title: 'Resting Heart Rate', description: 'Tracks cardiovascular fitness and overall heart health over time.', dataPoints: [75, 70, 72], dates: ['Mar 1', 'Jun 15', 'Sep 20'], gradient: 'from-purple-400/20 to-pink-400/20' },
+    { metric: '120/80', unit: 'mmHg', title: 'Blood Pressure', description: 'Monitors hypertension risk and cardiovascular health indicators.', dataPoints: [118, 122, 120], dates: ['Apr 12', 'Jul 18', 'Oct 5'], gradient: 'from-orange-400/20 to-red-400/20' },
+    { metric: '8.2', unit: 'hrs', title: 'Sleep Duration', description: 'Analyzes sleep patterns to optimize recovery and cognitive performance.', dataPoints: [7.5, 8.0, 8.2], dates: ['May 3', 'Aug 7', 'Nov 12'], gradient: 'from-indigo-400/20 to-purple-400/20' }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => setActiveCard((p) => (p + 1) % dataCards.length), 4000);
+    return () => clearInterval(interval);
+  }, [dataCards.length]);
+
+  useEffect(() => {
+    const interval = setInterval(() => setRotatingIndex((p) => (p + 1) % rotatingWords.length), 2500);
+    return () => clearInterval(interval);
+  }, [rotatingWords.length]);
+
+  const MiniChart = ({ dataPoints, dates }) => {
+    const max = Math.max(...dataPoints);
+    const min = Math.min(...dataPoints);
+    const range = max - min || 1;
+    const points = dataPoints.map((value, i) => {
+      const x = (i / (dataPoints.length - 1)) * 100;
+      const y = 100 - ((value - min) / range) * 60 - 20;
+      return `${x},${y}`;
+    }).join(' ');
+
+    return (
+      <div className="relative w-full h-20 mt-4">
+        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <polyline points={points} fill="none" stroke="white" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+          {dataPoints.map((v, i) => {
+            const x = (i / (dataPoints.length - 1)) * 100;
+            const y = 100 - ((v - min) / range) * 60 - 20;
+            return <circle key={i} cx={x} cy={y} r="2" fill="white" vectorEffect="non-scaling-stroke" />;
+          })}
+        </svg>
+        <div className="flex justify-between mt-2 text-xs text-white/70">
+          {dates.map((d, i) => <span key={i}>{d}</span>)}
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative py-32 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column - Content */}
-            <div className="space-y-8">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                <span className="text-gray-900">Access Real-World Health Data. </span>
-                <span className="text-blue-400">Ethically At Scale</span>
-              </h1>
-              
-              <div className="space-y-6 pt-8">
-                <p className="text-lg text-gray-700 max-w-xl">
-                  Get consented, longitudinal health data from thousands of individuals - wearables, labs, genetics, EMRs with proof of consent.
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-4 items-start">
-                  <button type="button" className="bg-gray-900 text-white px-8 py-3 rounded-md font-semibold hover:bg-gray-800 transition">
-                    Join as a Research Partner
-                  </button>
-                  
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <div className="flex -space-x-2">
-                      <div className="w-8 h-8 rounded-full bg-gray-400 border-2 border-white"></div>
-                      <div className="w-8 h-8 rounded-full bg-gray-500 border-2 border-white"></div>
-                      <div className="w-8 h-8 rounded-full bg-gray-600 border-2 border-white"></div>
-                      <div className="w-8 h-8 rounded-full bg-gray-700 border-2 border-white"></div>
-                    </div>
-                    <span className="text-sm font-medium">Join 100+ Members & Partners</span>
-                  </div>
-                </div>
-              </div>
+    <div className="site-bg">
+      <div className="glass-hero border-4 md:border-8 border-[#f7861e]/50">
+        <div className="grid lg:grid-cols-2  gap-8 lg:gap-12 p-8 md:p-12 lg:p-16 items-center min-h-screen">
+          <div className="space-y-8">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="badge-pill">For Research Partners</span>
+              <span className="muted-white text-xs md:text-sm font-medium">Ethical Data Access</span>
             </div>
 
-            {/* Right Column - Visual */}
-            <div className="relative flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-md">
-                {/* Connecting Line */}
-                <svg className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
-                  <path 
-                    d="M 0 250 Q 150 250 250 100" 
-                    stroke="#9CA3AF" 
-                    strokeWidth="2" 
-                    fill="none"
-                    className="opacity-50"
-                  />
+            <h1 className="heading-2">
+              Access Real-World Data
+            </h1> 
+            <h2 className='text-3xl md:text-4xl xl:text-5xl font-bold text-[#f7861e] leading-tight h-12 md:h-16 relative overflow-hidden'>
+              <span className="ml-2 font-semibold">{rotatingWords[rotatingIndex]}</span>
+            </h2>
+            
+            
+
+            <p className="text-lg text-gray-700 max-w-xl">
+              Partner with us to ethically access curated, high-quality health datasets and accelerate your research.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 mb-4 md:mb-6">
+                <a
+                  href="#join-waitlist"
+                  className="px-6 md:px-8 py-2.5 md:py-3 bg-[#fc5f2b] text-white rounded-xl font-semibold hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-100 text-sm md:text-base text-center"
+                >
+                  Join as a Partner
+                </a>
+    
+          </div>
+
+            {/* Manifesto Card */}
+            <Link to="/#manifesto" className="btn-card-link  bg-gradient-to-r from-[#f7861e]/40 to-[#f7861e]/50 bg-[200%_100%] group" aria-label="Read our manifesto about data ownership and privacy">
+              <div className="flex items-start gap-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-black to-gray-400 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-2xl"></span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-1">Earn While You Share</h3>
+                  <p className="text-sm text-gray-600">
+                    Get paid fairly for your health data contributions to research.
+                  </p>
+                </div>
+              </div>
+
+              {/* Arrow to indicate this is a button/link */}
+              <span className="ml-4 flex items-center text-[#fc5f2b] group-hover:text-gray-700 transition-transform transform group-hover:translate-x-1" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="stroke-current">
+                  <path d="M5 12h14"></path>
+                  <path d="M12 5l7 7-7 7"></path>
                 </svg>
+              </span>
+            </Link>
+          </div>
 
-                {/* Stacked Cards */}
-                <div className="relative" style={{ paddingTop: '40px' }}>
-                  {/* Match Card - Back */}
-                  <div className="absolute top-0 right-0 w-44 h-56 bg-white border-2 border-gray-300 rounded-lg shadow-lg p-6 transform rotate-6 hover:rotate-0 transition-transform duration-300" style={{ zIndex: 1 }}>
-                    <div className="flex items-center justify-center h-full">
-                      <span className="text-xl font-semibold text-gray-700">Match</span>
-                    </div>
-                  </div>
-                  
-                  {/* Lab med Card - Middle */}
-                  <div className="absolute top-12 right-16 w-44 h-56 bg-white border-2 border-gray-300 rounded-lg shadow-lg p-6 transform rotate-12 hover:rotate-0 transition-transform duration-300" style={{ zIndex: 2 }}>
-                    <div className="flex items-center justify-center h-full">
-                      <span className="text-xl font-semibold text-gray-700">Lab med</span>
-                    </div>
-                  </div>
-                  
-                  {/* Biometrics Card - Front */}
-                  <div className="absolute top-24 right-32 w-44 h-56 bg-white border-2 border-gray-300 rounded-lg shadow-lg p-6 transform rotate-[18deg] hover:rotate-0 transition-transform duration-300" style={{ zIndex: 3 }}>
-                    <div className="flex items-center justify-center h-full">
-                      <span className="text-xl font-semibold text-gray-700">Biometrics</span>
-                    </div>
-                  </div>
+          <div className="relative flex items-center justify-center">
+            <div className="glass-panel relative w-full max-w-md md:max-w-lg">
+              <img src={testImg} alt="dashboard background" className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" aria-hidden="true" />
+              <div className="w-full h-[500px] lg:h-[600px]">
+                <div className="relative w-full h-full p-6 z-10">
+                  {dataCards.map((card, index) => {
+                    const position = (index - activeCard + dataCards.length) % dataCards.length;
+                    const isActive = position === 0;
+                    return (
+                      <div
+                        key={index}
+                        className={`absolute inset-0 transition-all duration-700 ease-in-out ${isActive ? 'z-30' : position === 1 ? 'z-20' : 'z-10'}`}
+                        style={{
+                          transform: `translateX(${position * 18}px) translateY(${position * 12}px) rotate(${position * 3}deg) scale(${1 - position * 0.07})`,
+                          opacity: position < 3 ? 1 - position * 0.28 : 0
+                        }}
+                      >
+                        <div className={`card bg-gradient-to-br ${card.gradient}`}>
+                          <div className="mb-4">
+                            <div className="text-5xl md:text-6xl font-bold text-white mb-1">
+                              {card.metric}
+                              <span className="text-2xl font-normal text-white/80 ml-2">{card.unit}</span>
+                            </div>
+                            <div className="text-lg text-white/90 font-medium">{card.title}</div>
+                          </div>
 
-                  {/* Spacer to maintain layout */}
-                  <div className="w-44 h-96"></div>
+                          <MiniChart dataPoints={card.dataPoints} dates={card.dates} />
+
+                          <div className="mt-auto">
+                            <p className="text-sm text-white/80 leading-relaxed">{card.description}</p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Benefits Section */}
-      <section className="py-20 bg-gray-50 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16">Why Partner With Us</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-lg border border-gray-200 hover:shadow-lg transition">
-              <div className="text-5xl mb-4"></div>
-              <h3 className="text-2xl font-bold mb-4">Quality Data</h3>
-              <p className="text-gray-600">
-                Access verified, high-quality health data from consenting participants with complete transparency.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-lg border border-gray-200 hover:shadow-lg transition">
-              <div className="text-5xl mb-4"></div>
-              <h3 className="text-2xl font-bold mb-4">Fast Access</h3>
-              <p className="text-gray-600">
-                Streamlined data access process gets you from approval to analysis in record time.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-lg border border-gray-200 hover:shadow-lg transition">
-              <div className="text-5xl mb-4"></div>
-              <h3 className="text-2xl font-bold mb-4">Full Compliance</h3>
-              <p className="text-gray-600">
-                HIPAA-compliant infrastructure with complete audit trails and consent management.
-              </p>
-            </div>
-          </div>
         </div>
-      </section>
-
-      {/* Process */}
-      <section className="py-20 bg-gray-50 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16">Partnership Process</h2>
-          <div className="max-w-3xl mx-auto">
-            <div className="space-y-8">
-              <div className="flex gap-6">
-                <div className="flex-shrink-0 w-12 h-12 bg-gray-300 text-white rounded-full flex items-center justify-center font-bold">
-                  1
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Submit Application</h3>
-                  <p className="text-gray-600">
-                    Tell us about your research goals and data requirements.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-6">
-                <div className="flex-shrink-0 w-12 h-12 bg-gray-400 text-white rounded-full flex items-center justify-center font-bold">
-                  2
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Ethics Review</h3>
-                  <p className="text-gray-600">
-                    Our team reviews your proposal to ensure ethical standards are met.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-6">
-                <div className="flex-shrink-0 w-12 h-12 bg-gray-500 text-white rounded-full flex items-center justify-center font-bold">
-                  3
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Agreement & Setup</h3>
-                  <p className="text-gray-600">
-                    Sign data use agreements and configure your secure data access.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-6">
-                <div className="flex-shrink-0 w-12 h-12 bg-gray-600 text-white rounded-full flex items-center justify-center font-bold">
-                  4
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Access & Analyze</h3>
-                  <p className="text-gray-600">
-                    Begin accessing data and conducting your research with ongoing support.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Accelerate Your Research?</h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Join leading institutions and companies advancing health research.
-          </p>
-          <button type="button" className="bg-gray-900 text-white px-10 py-4 rounded-md font-semibold hover:bg-gray-800 transition text-lg">
-            Apply Now
-          </button>
-        </div>
-      </section>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Partners
+export default Partners;

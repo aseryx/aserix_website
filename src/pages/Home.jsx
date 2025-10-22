@@ -1,8 +1,4 @@
 import { useState, useEffect } from 'react';
-import newVideo from '../public/new.mp4';
-import ava1Img from '../public/avatar1.jpg';
-import ava2Img from '../public/avatar2.jpg';
-import ava3Img from '../public/avatar3.jpg';
 
 function Home() {
   // Rotating words for the descriptive text
@@ -53,10 +49,10 @@ function Home() {
         {/* Hero Background Image - Replace with your actual image */}
         <div className="absolute inset-0 z-0">
           <video
-            src={newVideo}
+            src="/new.mp4"
             autoPlay
-            playsInline
             // muted
+            playsInline
             loop
             className="absolute inset-0 w-full h-full object-cover"
           >
@@ -131,17 +127,17 @@ function Home() {
               <div className="flex items-center gap-2 md:gap-3">
                 <div className="flex -space-x-2">
                   <img
-                    src={ava1Img}
+                    src="/avatar1.jpg"
                     alt="Member"
                     className="w-7 md:w-9 h-7 md:h-9 rounded-full border-2 border-white shadow-lg object-cover"
                   />
                   <img
-                    src={ava2Img}
+                    src="/avatar2.jpg"
                     alt="Member"
                     className="w-7 md:w-9 h-7 md:h-9 rounded-full border-2 border-white shadow-lg object-cover"
                   />
                   <img
-                    src={ava3Img}
+                    src="/avatar3.jpg"
                     alt="Member"
                     className="w-7 md:w-9 h-7 md:h-9 rounded-full border-2 border-white shadow-lg object-cover"
                   />

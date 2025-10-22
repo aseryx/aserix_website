@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import testImg from '../public/test.jpg';
 
 function Partners() {
   const [activeCard, setActiveCard] = useState(0);
@@ -112,7 +111,7 @@ function Partners() {
 
           <div className="relative flex items-center justify-center">
             <div className="glass-panel relative w-full max-w-md md:max-w-lg">
-              <img src={testImg} alt="dashboard background" className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" aria-hidden="true" />
+              <img src="/test.jpg" alt="dashboard background" className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" aria-hidden="true" />
               <div className="w-full h-[500px] lg:h-[600px]">
                 <div className="relative w-full h-full p-6 z-10">
                   {dataCards.map((card, index) => {

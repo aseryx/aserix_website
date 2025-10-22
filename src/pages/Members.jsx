@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import testImg from '../public/test.jpg';
 
 function Members() {
   return (
@@ -68,7 +67,7 @@ function Members() {
           <div className="relative">
             <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-gray-200">
               <img
-                src={testImg}
+                src="/test.jpg"
                 alt="Health data dashboard"
                 className="w-full h-[500px] lg:h-[600px] object-cover"
                 onError={(e) => {

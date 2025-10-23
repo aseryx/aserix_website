@@ -89,7 +89,7 @@ function Navbar() {
           <div className="absolute right-0 top-0 h-full w-72 bg-white/95 backdrop-blur-xl rounded-l-3xl shadow-2xl border border-white/20">
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-white/20 bg-white/10">
-              <h2 className="text-xl font-semibold text-gray-900">Menu</h2>
+              <h2 className="text-xl font-semibold text-gray-900">Aserix</h2>
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -106,7 +106,7 @@ function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 backdrop-blur-sm ${
                   location.pathname === '/'
-                    ? 'bg-[#DDFC4E] text-black shadow-lg border-[#DDFC4E]/80'
+                    ? 'bg-[#fc5f2b] text-white shadow-lg border-[#fc5f2b]/80'
                     : 'text-gray-900 hover:bg-[#DDFC4E]/20 border border-white/20'
                 }`}
               >
@@ -118,7 +118,7 @@ function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 backdrop-blur-sm ${
                   location.pathname === '/members'
-                    ? 'bg-[#DDFC4E] text-black shadow-lg border-[#DDFC4E]/80'
+                    ? 'bg-[#fc5f2b] text-white shadow-lg border-[#fc5f2b]/80'
                     : 'text-gray-900 hover:bg-[#DDFC4E]/20 border border-white/20'
                 }`}
               >
@@ -130,7 +130,7 @@ function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 backdrop-blur-sm ${
                   location.pathname === '/partners'
-                    ? 'bg-[#DDFC4E] text-black shadow-lg border-[#DDFC4E]/80'
+                    ? 'bg-[#fc5f2b] text-white shadow-lg border-[#fc5f2b]/80'
                     : 'text-gray-900 hover:bg-[#DDFC4E]/20 border border-white/20'
                 }`}
               >

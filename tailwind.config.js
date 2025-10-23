@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'sans': ['Space Mono', 'monospace'],
+        'mono': ['Space Mono', 'monospace'],
+      },
       colors: {
         primary: {
           50: '#f0f9ff',

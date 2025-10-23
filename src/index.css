@@ -1,12 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -19,11 +20,11 @@ code {
 /* Centralized component classes for site visuals */
 @layer components {
   .site-bg {
-    @apply bg-gray-100 min-h-screen;
+    @apply bg-white min-h-screen;
   }
 
   .glass-hero {
-    @apply relative min-h-screen overflow-hidden rounded-2xl md:rounded-3xl m-2 md:m-3
+    @apply relative overflow-hidden rounded-2xl md:rounded-3xl m-2 md:m-3
            bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-lg
            border border-white/20 shadow-2xl;
     background-color: rgba(255,255,255,0.12);
@@ -35,7 +36,7 @@ code {
   }
 
   .card {
-    @apply rounded-3xl border-2 border-white/30 shadow-2xl p-6 h-full flex flex-col;
+    @apply rounded-3xl border-2 border-black/30 shadow-2xl p-6 h-full flex flex-col;
   }
 
   .btn-primary {

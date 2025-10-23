@@ -45,16 +45,21 @@ function Home() {
   return (
     <div className="relative w-full site-bg overflow-hidden">
       {/* Hero Container with White Border */}
-      <div className="relative h-screen max-width overflow-hidden rounded-2xl md:rounded-3xl border-4 md:border-8 border-[#f7861e]/50 shadow-2xl flex flex-col m-2 md:m-3">
+      <div className="relative h-[97vh] max-width overflow-hidden rounded-2xl md:rounded-3xl border-4 md:border-8 border-[#f7861e]/50 shadow-2xl flex flex-col m-2 md:m-3">
         {/* Hero Background Image - Replace with your actual image */}
         <div className="absolute inset-0 z-0">
           <video
             src="/new.mp4"
             autoPlay
-            // muted
+            muted
             playsInline
             loop
             className="absolute inset-0 w-full h-full object-cover"
+            ref={(video) => {
+              if (video) {
+                video.playbackRate = 0.7;
+              }
+            }}
           >
             Your browser does not support the video tag.
           </video>
@@ -63,86 +68,85 @@ function Home() {
 
 
         {/* Main Hero Content */}
-        <div className="relative z-10 h-full flex flex-col justify-between py-4">
-          {/* Top Section - Headline and Rotating Words */}
-          <div className="max-w-7xl mx-auto px-6 md:px-8 w-full pt-20 md:pt-40">
-            <div className="max-w-2xl">
+        <div className="relative z-10 h-full flex flex-col justify-center py-8">
+          {/* Centered Content */}
+          <div className="max-w-6xl mx-auto px-6 md:px-8 w-full">
+            <div className="max-w-4xl mx-auto text-center">
               {/* New Badge */}
-              <div className="flex items-center gap-2 mb-4 md:mb-6">
-                <span className="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-xs font-semibold rounded-full border border-white/30">
-                  New
-                </span>
-                <span className="text-white/90 text-xs md:text-sm font-medium">
-                  Data Marketplace 2.0 is out now
+              <div className="flex items-center justify-center gap-3 mb-8">
+                <div className="px-4 py-2 bg-white/10 backdrop-blur-md text-white text-sm font-medium rounded-full border border-white/20">
+                  ✨ New
+                </div>
+                <span className="text-white/80 text-sm font-light">
+                  Data Marketplace 2.0
                 </span>
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-4xl md:text-5xl xl:text-6xl font-bold text-white leading-tight tracking-tight mb-4 md:mb-6">
-                Your Health.
+              <h1 className="xl:text-5xl font-semibold text-white leading-[0.9] tracking-tight mb-6">
+              Make Your Health Data
               </h1>
 
               {/* Rotating Words with Animation */}
-              <div className="text-3xl md:text-4xl xl:text-5xl font-bold text-[#f7861e] leading-tight h-12 md:h-16 relative overflow-hidden">
+              <div className="xl:text-7xl font-bold text-[#f7861e] leading-[0.9] h-16 md:h-20 xl:h-24 relative overflow-hidden mb-8">
                 {rotatingWords.map((word, index) => (
                   <div
                     key={index}
-                    className={`absolute inset-0 transition-all duration-700 ease-in-out ${index === rotatingIndex
+                    className={`absolute inset-0 transition-all duration-1000 ease-in-out ${index === rotatingIndex
                       ? 'opacity-100 translate-y-0'
-                      : 'opacity-0 translate-y-8'
+                      : 'opacity-0 translate-y-12'
                       }`}
                   >
                     {word}
                   </div>
                 ))}
               </div>
+
+              {/* Description */}
+              <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-12 max-w-2xl mx-auto font-light">
+              Your health data is fragmented across hospitals, labs, and insurers. We bring it all together in one secure place. You control who sees it. You earn every time it's shared.              </p>
             </div>
           </div>
 
-          {/* Bottom Section - CTA and Social Proof */}
-          <div className="max-w-7xl mx-auto px-6 md:px-8 w-full pb-8 md:pb-12">
-            <div className="max-w-2xl">
-              {/* Description */}
-              <p className="text-sm md:text-base lg:text-lg text-white/90 leading-relaxed mb-4 md:mb-6 max-w-xl">
-                Your health information is worth thousands. Take control, license it securely, and earn every time it's used.
-              </p>
-
+          {/* CTA Section */}
+          <div className="max-w-4xl mx-auto px-6 md:px-8 w-full">
+            <div className="text-center">
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 mb-4 md:mb-6">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <a
                   href="/members"
-                  className="px-6 md:px-8 py-2.5 md:py-3 bg-[#fc5f2b] text-white rounded-xl font-semibold hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-100 text-sm md:text-base text-center"
+                  className="px-8 py-4 bg-[#fc5f2b] text-white rounded-2xl font-semibold hover:bg-[#e54a1f] transition-all duration-300 hover:scale-105 active:scale-100 text-base shadow-2xl hover:shadow-[#fc5f2b]/25"
                 >
                   Join as a Member
                 </a>
                 <a
                   href="/partners"
-                  className="px-6 md:px-8 py-2.5 md:py-3 bg-white/10 backdrop-blur-md text-white border-2 border-white/30 rounded-xl font-semibold hover:text-[#f7861e] transition-all duration-300 hover:scale-105 active:scale-100 text-sm md:text-base text-center"
+                  className="px-8 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-2xl font-semibold hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-100 text-base"
                 >
                   Join as a Research Partner
                 </a>
               </div>
 
               {/* Social Proof */}
-              <div className="flex items-center gap-2 md:gap-3">
-                <div className="flex -space-x-2">
+              <div className="flex items-center justify-center gap-4">
+                <div className="flex -space-x-3">
                   <img
                     src="/avatar1.jpg"
                     alt="Member"
-                    className="w-7 md:w-9 h-7 md:h-9 rounded-full border-2 border-white shadow-lg object-cover"
+                    className="w-10 h-10 rounded-full border-2 border-white shadow-lg object-cover"
                   />
                   <img
                     src="/avatar2.jpg"
                     alt="Member"
-                    className="w-7 md:w-9 h-7 md:h-9 rounded-full border-2 border-white shadow-lg object-cover"
+                    className="w-10 h-10 rounded-full border-2 border-white shadow-lg object-cover"
                   />
                   <img
                     src="/avatar3.jpg"
                     alt="Member"
-                    className="w-7 md:w-9 h-7 md:h-9 rounded-full border-2 border-white shadow-lg object-cover"
+                    className="w-10 h-10 rounded-full border-2 border-white shadow-lg object-cover"
                   />
                 </div>
-                <span className="text-white/90 text-xs md:text-sm font-medium">
+                <span className="text-white/80 text-sm font-light">
                   Join 100+ Members & Partners
                 </span>
               </div>
@@ -157,45 +161,50 @@ function Home() {
       </div>
 
       {/* Manifesto Section */}
-      <div className="relative w-full px-4 md:px-6 py-12">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-8">
-            Manifesto
-          </h2>
+      <div className="relative w-full px-6 md:px-8 py-20">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="xl:text-5xl font-semibold text-gray-900 mb-4">
+              Manifesto
+            </h2>
+            <div className="w-24 h-1 bg-[#f7861e] mx-auto rounded-full"></div>
+          </div>
 
-          <div className="bg-gradient-to-r from-[#f7861e]/40 to-[#f7861e]/50 bg-[200%_100%] rounded-3xl border-8 border-white shadow-2xl p-8 md:p-12">
-            <div className={`overflow-hidden transition-all duration-500 ${manifestoExpanded ? 'max-h-[2000px]' : 'max-h-[200px]'}`}>
-              <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                Your health data is valuable. Every test, every scan, every measurement—it's worth thousands to researchers and pharmaceutical companies. Yet you see none of that value.
-              </p>
+          <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-[#3d2520] rounded-3xl shadow-2xl overflow-hidden border border-gray-700">
+            <div className={`transition-all duration-700 ease-in-out ${manifestoExpanded ? 'max-h-[2000px]' : 'max-h-[300px]'}`}>
+              <div className="p-12 md:p-16">
+                <p className="text-gray-200 leading-relaxed mb-8 font-light text-md">
+                  Your health data is valuable. Every test, every scan, every measurement—it's worth thousands to researchers and pharmaceutical companies. Yet you see none of that value.
+                </p>
 
-              {manifestoExpanded && (
-                <>
-                  <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                    We believe health data should work for everyone. That means you should control it, profit from it, and use it to understand your own health better.
-                  </p>
+                {manifestoExpanded && (
+                  <div className="space-y-8">
+                    <p className="text-gray-200 leading-relaxed font-light text-md">
+                      We believe health data should work for everyone. That means you should control it, profit from it, and use it to understand your own health better.
+                    </p>
 
-                  <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                    Aseryx is building the infrastructure for a fair health data economy. A place where your information creates value for you, advances medical research, and helps millions of people make better health decisions.
-                  </p>
+                    <p className="text-gray-200 leading-relaxed font-light text-md">
+                      Aseryx is building the infrastructure for a fair health data economy. A place where your information creates value for you, advances medical research, and helps millions of people make better health decisions.
+                    </p>
 
-                  <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                    This is about ownership. This is about transparency. This is about turning your health journey into an asset that works for you.
-                  </p>
+                    <p className="font-light text-md text-gray-200 leading-relaxed">
+                      This is about ownership. This is about transparency. This is about turning your health journey into an asset that works for you.
+                    </p>
 
-                  <p className="text-lg text-gray-700 leading-relaxed font-semibold">
-                    Welcome to the future of health data.
-                  </p>
-                </>
-              )}
+                    <p className="text-2xl text-white font-semibold">
+                      Welcome to the future of health data.
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
 
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center pb-8">
               <button
                 onClick={() => setManifestoExpanded(!manifestoExpanded)}
-                className="px-8 py-3 bg-[#fc5f2b] text-white rounded-xl font-semibold hover:bg-gray-800 transition-all duration-300 hover:shadow-lg hover:scale-105"
+                className="px-8 py-4 bg-[#fc5f2b] text-white rounded-2xl font-semibold hover:bg-[#e54a1f] transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                {manifestoExpanded ? 'Collapse Manifesto' : 'Expand Manifesto'}
+                {manifestoExpanded ? 'Read Less' : 'Read More'}
               </button>
             </div>
           </div>
@@ -203,38 +212,44 @@ function Home() {
       </div>
 
       {/* FAQ Section */}
-      <div className="relative w-fullpx-4 md:px-6 py-12">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-sm font-semibold text-gray-500 text-center mb-2 uppercase tracking-wider">
-            FAQ
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 text-center mb-12">
-            Frequently Asked Questions
-          </h2>
+      <div className="relative w-full px-6 md:px-8 py-20">
+        <div className="max-w-6xl mx-auto">
+          {/* Orange Container */}
+          <div className="bg-gradient-to-br from-[#fc5f2b] to-[#f7861e] rounded-3xl shadow-2xl p-8 md:p-12 lg:p-16">
+            <div className="text-center mb-12">
+              <p className="text-sm font-medium text-white/80 mb-4 uppercase tracking-wider">
+                FAQ
+              </p>
+              <h2 className="xl:text-5xl font-semibold text-white mb-4">
+                Frequently Asked Questions
+              </h2>
+              <div className="w-24 h-1 bg-white/50 mx-auto rounded-full"></div>
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
-                onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-semibold text-gray-900 pr-4">
-                    {faq.question}
-                  </h3>
-                  <div className={`flex-shrink-0 w-6 h-6 bg-[#fc5f2b] rounded-full flex items-center justify-center transition-transform duration-300 ${expandedFaq === index ? 'rotate-45' : ''}`}>
-                    <span className="text-white font-bold text-lg leading-none">+</span>
+            <div className="grid md:grid-cols-2 gap-6">
+              {faqs.map((faq, index) => (
+                <div
+                  key={index}
+                  className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-lg hover:shadow-2xl hover:bg-white/15 transition-all duration-300 cursor-pointer border border-white/20"
+                  onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="text-md font-medium text-white pr-6 leading-tight">
+                      {faq.question}
+                    </h3>
+                    <div className={`flex-shrink-0 w-8 h-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center transition-all duration-300 border border-white/30 ${expandedFaq === index ? 'rotate-45 bg-white/30' : 'hover:bg-white/30'}`}>
+                      <span className="text-white font-light text-md leading-none">+</span>
+                    </div>
+                  </div>
+
+                  <div className={`overflow-hidden transition-all duration-500 ease-in-out ${expandedFaq === index ? 'max-h-64 opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
+                    <p className="text-white/90 leading-relaxed text-md font-light">
+                      {faq.answer}
+                    </p>
                   </div>
                 </div>
-
-                <div className={`overflow-hidden transition-all duration-300 ${expandedFaq === index ? 'max-h-48 opacity-100 mt-4' : 'max-h-0 opacity-0'}`}>
-                  <p className="text-gray-600 leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

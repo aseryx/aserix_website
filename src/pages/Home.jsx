@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function Home() {
   // Rotating words for the descriptive text
@@ -6,6 +6,9 @@ function Home() {
   const [rotatingIndex, setRotatingIndex] = useState(0);
   const [manifestoExpanded, setManifestoExpanded] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState(null);
+  const [videoMuted, setVideoMuted] = useState(true);
+  const [showPlayButton, setShowPlayButton] = useState(false);
+  const videoRef = useRef(null);
 
   // Handle word rotation
   useEffect(() => {
@@ -14,6 +17,55 @@ function Home() {
     }, 2500);
     return () => clearInterval(interval);
   }, []);
+
+  // Handle video autoplay with sound
+  useEffect(() => {
+    const attemptAutoplayWithSound = async () => {
+      if (videoRef.current) {
+        try {
+          // Try to play the video (it should autoplay muted)
+          await videoRef.current.play();
+          setVideoMuted(true);
+          
+          // After video starts playing, try to unmute
+          setTimeout(() => {
+            try {
+              videoRef.current.muted = false;
+              setVideoMuted(false);
+              setShowPlayButton(false);
+            } catch (error) {
+              // If unmuting fails, show the play button
+              console.log('Could not unmute automatically, showing play button');
+              setShowPlayButton(true);
+            }
+          }, 2000);
+          
+        } catch (error) {
+          // If autoplay fails completely, show play button
+          console.log('Autoplay blocked completely, showing play button');
+          setShowPlayButton(true);
+        }
+      }
+    };
+
+    // Wait for video to be ready
+    const timer = setTimeout(attemptAutoplayWithSound, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Handle play button click to enable sound
+  const handlePlayWithSound = async () => {
+    if (videoRef.current) {
+      try {
+        videoRef.current.muted = false;
+        await videoRef.current.play();
+        setVideoMuted(false);
+        setShowPlayButton(false);
+      } catch (error) {
+        console.log('Could not enable sound:', error);
+      }
+    }
+  };
 
   const faqs = [
     {
@@ -30,7 +82,7 @@ function Home() {
     },
     {
       question: "How much does it cost?",
-      answer: "Membership is free! You earn money when you license your data to research partners. We take a small platform fee."
+      answer: "Membership is free! You earn money when you license your data to research partners. We take a small platform fee after Beta."
     },
     {
       question: "When is the official Launch?",
@@ -49,21 +101,42 @@ function Home() {
         {/* Hero Background Image - Replace with your actual image */}
         <div className="absolute inset-0 z-0">
           <video
+            ref={videoRef}
             src="/new.mp4"
             autoPlay
             muted
             playsInline
             loop
             className="absolute inset-0 w-full h-full object-cover"
-            ref={(video) => {
-              if (video) {
-                video.playbackRate = 0.7;
-              }
+            onLoadedData={(e) => {
+              e.target.playbackRate = 0.9;
             }}
           >
             Your browser does not support the video tag.
           </video>
           <div className="absolute inset-0 bg-black/40"></div>
+          
+          {/* Play with Sound Button Overlay */}
+          {showPlayButton && (
+            <div className="absolute top-4 right-4 z-20">
+              <button
+                onClick={handlePlayWithSound}
+                className="bg-white/20 backdrop-blur-md hover:bg-white/30 transition-all duration-300 rounded-full p-3 border border-white/30 hover:scale-110 group"
+                aria-label="Enable sound"
+              >
+                <svg 
+                  className="w-6 h-6 text-white group-hover:text-[#f7861e]" 
+                  fill="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                </svg>
+              </button>
+              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-white text-xs bg-black/50 px-2 py-1 rounded whitespace-nowrap">
+                Click to enable sound
+              </div>
+            </div>
+          )}
         </div>
 
 
@@ -78,13 +151,13 @@ function Home() {
                   ✨ New
                 </div>
                 <span className="text-white/80 text-sm font-light">
-                  Data Marketplace 2.0
+                  Health Data Marketplace 2.0
                 </span>
               </div>
 
               {/* Main Headline */}
               <h1 className="xl:text-5xl font-semibold text-white leading-[0.9] tracking-tight mb-6">
-              Make Your Health Data
+                Make Your Health Data
               </h1>
 
               {/* Rotating Words with Animation */}
@@ -104,7 +177,7 @@ function Home() {
 
               {/* Description */}
               <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-12 max-w-2xl mx-auto font-light">
-              Your health data is fragmented across hospitals, labs, and insurers. We bring it all together in one secure place. You control who sees it. You earn every time it's shared.              </p>
+                Your health data is fragmented across hospitals, labs, and insurers. We bring it all together in one secure place. You control who sees it. You earn every time it's shared.              </p>
             </div>
           </div>
 
@@ -171,29 +244,116 @@ function Home() {
           </div>
 
           <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-[#3d2520] rounded-3xl shadow-2xl overflow-hidden border border-gray-700">
-            <div className={`transition-all duration-700 ease-in-out ${manifestoExpanded ? 'max-h-[2000px]' : 'max-h-[300px]'}`}>
+            <div className={`transition-all duration-700 ease-in-out ${manifestoExpanded ? 'max-h-[4000px]' : 'max-h-[300px]'}`}>
               <div className="p-12 md:p-16">
-                <p className="text-gray-200 leading-relaxed mb-8 font-light text-md">
-                  Your health data is valuable. Every test, every scan, every measurement—it's worth thousands to researchers and pharmaceutical companies. Yet you see none of that value.
-                </p>
+                {/* Problem Statement */}
+                <div className="mb-8">
+                  <h3 className="text-2xl font-semibold text-white mb-4">Health Data is Scattered, Controlled, and Profiting Everyone While Failing Us</h3>
+                  <p className="text-gray-200 leading-relaxed mb-6 font-light text-md">
+                  For decades, our health data has been fragmented, controlled, and used without our knowledge or consent.
+                  </p>
+                  <p className="text-gray-200 leading-relaxed mb-6 font-light text-md">
+                    The health data ecosystem is broken:
+                  </p>
+                  <ul className="text-gray-200 leading-relaxed mb-6 font-light text-md space-y-2 ml-4">
+                    <li>• <strong>Individuals</strong> (the data creators)</li>
+                    <li>• <strong>Institutions</strong> (hospitals, labs, insurers who control it)</li>
+                    <li>• <strong>Organizations</strong> (researchers, pharma, AI companies who need it)</li>
+                  </ul>
+                </div>
 
                 {manifestoExpanded && (
                   <div className="space-y-8">
-                    <p className="text-gray-200 leading-relaxed font-light text-md">
-                      We believe health data should work for everyone. That means you should control it, profit from it, and use it to understand your own health better.
-                    </p>
+                    {/* The Broken System */}
+                    <div>
+                      <p className="text-gray-200 leading-relaxed font-light text-md mb-4">
+                        The system is misaligned because institutions control our data while organizations can't access it ethically, and we have no control or transparency. The result:
+                      </p>
+                      <ul className="text-gray-200 leading-relaxed font-light text-md space-y-2 ml-4">
+                        <li>• Health records are scattered across 10+ systems: hospitals, wearables, labs, genetic tests, insurers</li>
+                        <li>• We can't access our own complete health history when we need it</li>
+                        <li>• Organizations struggle with fragmented, incomplete datasets that slow research</li>
+                        <li>• Institutions profit from our data while we receive nothing</li>
+                        <li>• Breakthroughs are delayed because the data that could save lives is locked away</li>
+                        <li>• No transparency into who accesses our data or how it's used</li>
+                        <li>• Innovation happens for institutions, not individuals</li>
+                      </ul>
+                    </div>
 
-                    <p className="text-gray-200 leading-relaxed font-light text-md">
-                      Aseryx is building the infrastructure for a fair health data economy. A place where your information creates value for you, advances medical research, and helps millions of people make better health decisions.
-                    </p>
+                    {/* Aseryx Solution */}
+                    <div>
+                      <h3 className="text-2xl font-semibold text-white mb-4">Aseryx: Our Data, Our Control, Our Choice</h3>
+                      <p className="text-gray-200 leading-relaxed font-light text-md mb-4">
+                        Owning every piece of health data in one place: medical records, wearables, labs, genetics. Choosing who sees it and what it's used for. Getting compensated when it advances research.
+                      </p>
+                      <p className="text-gray-200 leading-relaxed font-light text-md mb-4">
+                        We're infrastructure for data ownership and ethical access. Aseryx unifies fragmented health data into one encrypted vault, gives complete control over who sees it, and ensures fair compensation and transparency in every interaction.
+                      </p>
+                      <div className="grid md:grid-cols-2 gap-6 mb-6">
+                        <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                          <h4 className="text-lg font-semibold text-white mb-3">For individuals:</h4>
+                          <ul className="text-gray-200 leading-relaxed font-light text-sm space-y-1">
+                            <li>• Access your complete health history</li>
+                            <li>• Control who sees it</li>
+                            <li>• Use it anywhere in the world</li>
+                            <li>• Earn fair compensation when your data contributes to research</li>
+                            <li>• Know exactly how it's being used</li>
+                          </ul>
+                        </div>
+                        <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+                          <h4 className="text-lg font-semibold text-white mb-3">For organizations:</h4>
+                          <ul className="text-gray-200 leading-relaxed font-light text-sm space-y-1">
+                            <li>• Access unified, longitudinal datasets from thousands of consenting members</li>
+                            <li>• Research-ready data that accelerates discoveries and saves lives</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <p className="text-gray-200 leading-relaxed font-light text-md">
+                        Giving ownership to individuals while enabling the research that advances medicine for everyone.
+                      </p>
+                    </div>
 
-                    <p className="font-light text-md text-gray-200 leading-relaxed">
-                      This is about ownership. This is about transparency. This is about turning your health journey into an asset that works for you.
-                    </p>
+                    {/* Mission */}
+                    <div>
+                      <h3 className="text-2xl font-semibold text-white mb-4">Our Mission: Unlock Data Ownership & Accelerate Health</h3>
+                      <p className="text-gray-200 leading-relaxed font-light text-md mb-4">
+                        The health data industry built walls that fragment information, making it impossible for individuals to control their data while forcing organizations to work with incomplete datasets that slow medical breakthroughs.
+                      </p>
+                      <p className="text-gray-200 leading-relaxed font-light text-md mb-6">
+                        Unlock health data ownership and put control back where it belongs. Enable the research that will cure diseases and improve lives. Ensure fair compensation for those who contribute.
+                      </p>
+                      
+                      <div className="bg-white/5 rounded-xl p-6 border border-white/10 mb-6">
+                        <h4 className="text-lg font-semibold text-white mb-4">What we're building:</h4>
+                        <ul className="text-gray-200 leading-relaxed font-light text-md space-y-2">
+                          <li>• Unified vault for all health data (medical records, wearables, labs, genetics)</li>
+                          <li>• Complete control, individuals decide who accesses what</li>
+                          <li>• Fair compensation when data is licensed for research</li>
+                          <li>• Full transparency, see who accessed data, when, and for what purpose</li>
+                          <li>• Research-ready datasets for organizations, ethically sourced with clear consent</li>
+                          <li>• A system where data flows to where it can do the most good</li>
+                        </ul>
+                      </div>
 
-                    <p className="text-2xl text-white font-semibold">
-                      Welcome to the future of health data.
-                    </p>
+                      <p className="text-gray-200 leading-relaxed font-light text-md mb-4">
+                        A health data system that works for everyone.
+                      </p>
+                      <p className="text-gray-200 leading-relaxed font-light text-md mb-6">
+                        The current system fragments data, slows progress, and profits institutions while individuals get nothing.
+                      </p>
+                      <p className="text-gray-200 leading-relaxed font-light text-md mb-6">
+                        Join us to take control, enable research that matters, and get compensated fairly.
+                      </p>
+                      <p className="text-xl font-semibold text-white">
+                        We all have loved ones who need better treatments. Better data makes that possible.
+                      </p>
+                    </div>
+
+                    {/* Team */}
+                    <div className="text-center pt-6 border-t border-white/10">
+                      <p className="text-lg font-semibold text-white mb-2">The Aseryx Team</p>
+                      <p className="text-gray-200 font-light">Built for data ownership and medical progress.</p>
+                    </div>
                   </div>
                 )}
               </div>

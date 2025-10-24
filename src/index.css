@@ -20,7 +20,12 @@ code {
 /* Centralized component classes for site visuals */
 @layer components {
   .site-bg {
-    @apply bg-white min-h-screen;
+    @apply min-h-screen;
+    background-image: url('/image.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
   .glass-hero {

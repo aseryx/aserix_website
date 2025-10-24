@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function Footer() {
   return (
     <footer className="mt-auto">
@@ -26,8 +28,8 @@ function Footer() {
           {/* Footer Bottom */}
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-900">
             <div className="flex flex-wrap gap-4 md:gap-6 mb-4 md:mb-0">
-              <a href="#" className="hover:text-[#fc5f2b] transition-colors">Terms of Services</a>
-              <a href="#" className="hover:text-[#fc5f2b] transition-colors">Privacy Policy</a>
+              <Link to="/terms" className="hover:text-[#fc5f2b] transition-colors">Terms of Service</Link>
+              <Link to="/terms" className="hover:text-[#fc5f2b] transition-colors">Privacy Policy</Link>
               <a href="#" className="hover:text-[#fc5f2b] transition-colors">Do Not Sell or Share My Information</a>
             </div>
             

@@ -97,9 +97,8 @@ function MembersMobile() {
                     return (
                       <div
                         key={index}
-                        className={`absolute inset-0 transition-all duration-700 ease-in-out ${
-                          isActive ? 'opacity-90 z-10' : 'opacity-0 z-0'
-                        }`}
+                        className={`absolute inset-0 transition-all duration-700 ease-in-out ${isActive ? 'opacity-90 z-10' : 'opacity-0 z-0'
+                          }`}
                       >
                         <div className={`bg-gradient-to-br ${card.gradient} rounded-2xl border border-white/30 shadow-xl p-5 bg-opacity-90 h-full flex flex-col`}>
                           <div className="mb-4">
@@ -147,22 +146,22 @@ function MembersMobile() {
                 {/* Feature Card */}
                 <div className="mt-8 sm:mt-10">
                   <Link to="/#manifesto" className="group block bg-gradient-to-br from-gray-900 via-gray-800 to-[#3d2520] rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100" aria-label="Read our manifesto about data ownership and privacy">
-                  <div className="flex items-start gap-4 sm:gap-6">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[#f7861e] to-[#fc5f2b] rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <div className="flex items-start gap-4 sm:gap-6">
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-[#f7861e] to-[#fc5f2b] rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Read Our manifesto</h3>
+                        <p className="text-white leading-relaxed text-sm sm:text-base">
+                        For decades, our health data has been fragmented, controlled, and used without our knowledge or consent.
+                        </p>
+                      </div>
+                      <div className="flex items-center text-[#f7861e] group-hover:text-[#fc5f2b] transition-all duration-300 group-hover:translate-x-1">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="stroke-current sm:w-6 sm:h-6">
+                          <path d="M5 12h14"></path>
+                          <path d="M12 5l7 7-7 7"></path>
+                        </svg>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Read Our manifesto</h3>
-                      <p className="text-white leading-relaxed text-sm sm:text-base">
-                        Get paid fairly for your health data contributions to research.
-                      </p>
-                    </div>
-                    <div className="flex items-center text-[#f7861e] group-hover:text-[#fc5f2b] transition-all duration-300 group-hover:translate-x-1">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="stroke-current sm:w-6 sm:h-6">
-                        <path d="M5 12h14"></path>
-                        <path d="M12 5l7 7-7 7"></path>
-                      </svg>
-                    </div>
-                  </div>
                   </Link>
                 </div>
               </div>
@@ -185,7 +184,7 @@ function MembersMobile() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            
+
             {/* Tally Embed */}
             <div className="w-full h-full flex flex-col">
               <div className="p-3 sm:p-4 bg-gray-50 border-b">

@@ -116,7 +116,7 @@ function Members() {
                   <div className="flex-1">
                     <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Read Our manifesto</h3>
                     <p className="text-white leading-relaxed text-sm sm:text-base">
-                      Get paid fairly for your health data contributions to research.
+                    For decades, our health data has been fragmented, controlled, and used without our knowledge or consent.
                     </p>
                   </div>
                   <div className="flex items-center text-[#f7861e] group-hover:text-[#fc5f2b] transition-all duration-300 group-hover:translate-x-1">

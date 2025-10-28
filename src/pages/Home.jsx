@@ -26,7 +26,7 @@ function Home() {
           // Try to play the video (it should autoplay muted)
           await videoRef.current.play();
           setVideoMuted(true);
-          
+
           // After video starts playing, try to unmute
           setTimeout(() => {
             try {
@@ -39,7 +39,7 @@ function Home() {
               setShowPlayButton(true);
             }
           }, 2000);
-          
+
         } catch (error) {
           // If autoplay fails completely, show play button
           console.log('Autoplay blocked completely, showing play button');
@@ -109,13 +109,13 @@ function Home() {
             loop
             className="absolute inset-0 w-full h-full object-cover"
             onLoadedData={(e) => {
-              e.target.playbackRate = 0.9;
+              // e.target.playbackRate = 0.9;
             }}
           >
             Your browser does not support the video tag.
           </video>
           <div className="absolute inset-0 bg-black/40"></div>
-          
+
           {/* Play with Sound Button Overlay */}
           {showPlayButton && (
             <div className="absolute top-4 right-4 z-20">
@@ -124,12 +124,12 @@ function Home() {
                 className="bg-white/20 backdrop-blur-md hover:bg-white/30 transition-all duration-300 rounded-full p-3 border border-white/30 hover:scale-110 group"
                 aria-label="Enable sound"
               >
-                <svg 
-                  className="w-6 h-6 text-white group-hover:text-[#f7861e]" 
-                  fill="currentColor" 
+                <svg
+                  className="w-6 h-6 text-white group-hover:text-[#f7861e]"
+                  fill="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
                 </svg>
               </button>
               <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-white text-xs bg-black/50 px-2 py-1 rounded whitespace-nowrap">
@@ -147,21 +147,23 @@ function Home() {
             <div className="max-w-4xl mx-auto text-center">
               {/* New Badge */}
               <div className="flex items-center justify-center gap-3 mb-8">
-                <div className="px-4 py-2 bg-white/10 backdrop-blur-md text-white text-sm font-medium rounded-full border border-white/20">
-                  ✨ New
+                <div className="flex items-center justify-center gap-3 mb-8">
+                  <div className="px-4 py-2 bg-white/10 backdrop-blur-md text-white text-sm font-medium rounded-full border border-white/20">
+                    ✨ New
+                  </div>
+                  <span className="text-white/80 text-sm font-light">
+                    Swiss Bank for your Health Data
+                  </span>
                 </div>
-                <span className="text-white/80 text-sm font-light">
-                  The swiss bank for your health data is here.
-                </span>
               </div>
 
               {/* Main Headline */}
-              <h1 className="xl:text-5xl font-semibold text-white leading-[0.9] tracking-tight mb-6">
-                Make Your Health Data
+              <h1 className="text-3xl md:text-4xl xl:text-5xl font-semibold text-white leading-[0.9] tracking-tight mb-6">
+              Your health data, now
               </h1>
 
               {/* Rotating Words with Animation */}
-              <div className="xl:text-7xl font-bold text-[#f7861e] leading-[0.9] h-16 md:h-20 xl:h-24 relative overflow-hidden mb-8">
+              <div className="text-4xl md:text-5xl xl:text-7xl font-bold text-[#f7861e] leading-[0.9] h-16 md:h-20 xl:h-24 relative overflow-hidden mb-8">
                 {rotatingWords.map((word, index) => (
                   <div
                     key={index}
@@ -250,7 +252,7 @@ function Home() {
                 <div className="mb-8">
                   <h3 className="text-2xl font-semibold text-white mb-4">Health Data is Scattered, Controlled, and Profiting Everyone While Failing Us</h3>
                   <p className="text-gray-200 leading-relaxed mb-6 font-light text-md">
-                  For decades, our health data has been fragmented, controlled, and used without our knowledge or consent.
+                    For decades, our health data has been fragmented, controlled, and used without our knowledge or consent.
                   </p>
                   <p className="text-gray-200 leading-relaxed mb-6 font-light text-md">
                     The health data ecosystem is broken:
@@ -322,7 +324,7 @@ function Home() {
                       <p className="text-gray-200 leading-relaxed font-light text-md mb-6">
                         Unlock health data ownership and put control back where it belongs. Enable the research that will cure diseases and improve lives. Ensure fair compensation for those who contribute.
                       </p>
-                      
+
                       <div className="bg-white/5 rounded-xl p-6 border border-white/10 mb-6">
                         <h4 className="text-lg font-semibold text-white mb-4">What we're building:</h4>
                         <ul className="text-gray-200 leading-relaxed font-light text-md space-y-2">

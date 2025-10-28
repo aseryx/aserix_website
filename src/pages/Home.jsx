@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 function Home() {
   // Rotating words for the descriptive text
-  const rotatingWords = ['Profitable', 'Controlled', 'Insightful', 'Secured', 'All in One Place'];
+  const rotatingWords = ['Profitable', 'Accessible', 'Insightful', 'Secured', 'All in One Place'];
   const [rotatingIndex, setRotatingIndex] = useState(0);
   const [manifestoExpanded, setManifestoExpanded] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState(null);

@@ -67,11 +67,11 @@ function MembersMobile() {
                 </div>
                 {/* Headline */}
                 <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-[0.9] tracking-tight">
-                  Your Health Data.
+                  Your Health Data
                 </h1>
                 <div className="text-4xl sm:text-5xl font-bold text-[#f7861e] leading-[0.9] h-12 sm:h-16 relative overflow-hidden mb-6">
                   <h1>
-                    Unified.
+                    Unified
                   </h1>
                 </div>
               </div>

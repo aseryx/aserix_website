@@ -6,8 +6,6 @@ function Home() {
   const [rotatingIndex, setRotatingIndex] = useState(0);
   const [manifestoExpanded, setManifestoExpanded] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState(null);
-  const [videoMuted, setVideoMuted] = useState(true);
-  const [showPlayButton, setShowPlayButton] = useState(false);
   const videoRef = useRef(null);
 
   // Handle word rotation
@@ -18,54 +16,29 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  // Handle video autoplay with sound
+  // Unmute video on any user interaction (click, touch, keypress)
   useEffect(() => {
-    const attemptAutoplayWithSound = async () => {
-      if (videoRef.current) {
-        try {
-          // Try to play the video (it should autoplay muted)
-          await videoRef.current.play();
-          setVideoMuted(true);
-
-          // After video starts playing, try to unmute
-          setTimeout(() => {
-            try {
-              videoRef.current.muted = false;
-              setVideoMuted(false);
-              setShowPlayButton(false);
-            } catch (error) {
-              // If unmuting fails, show the play button
-              console.log('Could not unmute automatically, showing play button');
-              setShowPlayButton(true);
-            }
-          }, 2000);
-
-        } catch (error) {
-          // If autoplay fails completely, show play button
-          console.log('Autoplay blocked completely, showing play button');
-          setShowPlayButton(true);
-        }
+    const handleUserInteraction = () => {
+      if (videoRef.current && videoRef.current.muted) {
+        videoRef.current.muted = false;
+        // Remove listeners after first interaction
+        document.removeEventListener('click', handleUserInteraction);
+        document.removeEventListener('touchstart', handleUserInteraction);
+        document.removeEventListener('keydown', handleUserInteraction);
       }
     };
 
-    // Wait for video to be ready
-    const timer = setTimeout(attemptAutoplayWithSound, 500);
-    return () => clearTimeout(timer);
-  }, []);
+    // Listen for any user interaction
+    document.addEventListener('click', handleUserInteraction);
+    document.addEventListener('touchstart', handleUserInteraction);
+    document.addEventListener('keydown', handleUserInteraction);
 
-  // Handle play button click to enable sound
-  const handlePlayWithSound = async () => {
-    if (videoRef.current) {
-      try {
-        videoRef.current.muted = false;
-        await videoRef.current.play();
-        setVideoMuted(false);
-        setShowPlayButton(false);
-      } catch (error) {
-        console.log('Could not enable sound:', error);
-      }
-    }
-  };
+    return () => {
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
+      document.removeEventListener('keydown', handleUserInteraction);
+    };
+  }, []);
 
   const faqs = [
     {
@@ -104,39 +77,15 @@ function Home() {
             ref={videoRef}
             src="/new.mp4"
             autoPlay
-            // muted
+            muted
             playsInline
             loop
             className="absolute inset-0 w-full h-full object-cover"
-            onLoadedData={(e) => {
-              // e.target.playbackRate = 0.9;
-            }}
           >
             Your browser does not support the video tag.
           </video>
           <div className="absolute inset-0 bg-black/40"></div>
 
-          {/* Play with Sound Button Overlay */}
-          {showPlayButton && (
-            <div className="absolute top-4 right-4 z-20">
-              <button
-                onClick={handlePlayWithSound}
-                className="bg-white/20 backdrop-blur-md hover:bg-white/30 transition-all duration-300 rounded-full p-3 border border-white/30 hover:scale-110 group"
-                aria-label="Enable sound"
-              >
-                <svg
-                  className="w-6 h-6 text-white group-hover:text-[#f7861e]"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                </svg>
-              </button>
-              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-white text-xs bg-black/50 px-2 py-1 rounded whitespace-nowrap">
-                Click to enable sound
-              </div>
-            </div>
-          )}
         </div>
 
 

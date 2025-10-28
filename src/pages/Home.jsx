@@ -6,7 +6,6 @@ function Home() {
   const [rotatingIndex, setRotatingIndex] = useState(0);
   const [manifestoExpanded, setManifestoExpanded] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState(null);
-  const videoRef = useRef(null);
 
   // Handle word rotation
   useEffect(() => {
@@ -16,29 +15,6 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  // Unmute video on any user interaction (click, touch, keypress)
-  useEffect(() => {
-    const handleUserInteraction = () => {
-      if (videoRef.current && videoRef.current.muted) {
-        videoRef.current.muted = false;
-        // Remove listeners after first interaction
-        document.removeEventListener('click', handleUserInteraction);
-        document.removeEventListener('touchstart', handleUserInteraction);
-        document.removeEventListener('keydown', handleUserInteraction);
-      }
-    };
-
-    // Listen for any user interaction
-    document.addEventListener('click', handleUserInteraction);
-    document.addEventListener('touchstart', handleUserInteraction);
-    document.addEventListener('keydown', handleUserInteraction);
-
-    return () => {
-      document.removeEventListener('click', handleUserInteraction);
-      document.removeEventListener('touchstart', handleUserInteraction);
-      document.removeEventListener('keydown', handleUserInteraction);
-    };
-  }, []);
 
   const faqs = [
     {
@@ -74,7 +50,6 @@ function Home() {
         {/* Hero Background Image - Replace with your actual image */}
         <div className="absolute inset-0 z-0">
           <video
-            ref={videoRef}
             src="/new.mp4"
             autoPlay
             muted

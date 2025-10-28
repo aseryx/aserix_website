@@ -104,7 +104,7 @@ function Home() {
             ref={videoRef}
             src="/new.mp4"
             autoPlay
-            muted
+            // muted
             playsInline
             loop
             className="absolute inset-0 w-full h-full object-cover"

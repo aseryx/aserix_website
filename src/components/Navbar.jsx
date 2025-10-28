@@ -89,7 +89,7 @@ function Navbar() {
           <div className="absolute right-0 top-0 h-full w-72 bg-white/95 backdrop-blur-xl rounded-l-3xl shadow-2xl border border-white/20">
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-white/20 bg-white/10">
-              <h2 className="text-xl font-semibold text-gray-900">Aserix</h2>
+              <h2 className="text-xl font-semibold text-gray-900">Aseryx</h2>
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}

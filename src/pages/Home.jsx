@@ -170,11 +170,11 @@ function Home() {
           </div>
 
           <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-[#3d2520] rounded-3xl shadow-2xl overflow-hidden border border-gray-700">
-            <div className={`transition-all duration-700 ease-in-out ${manifestoExpanded ? 'max-h-[4000px]' : 'max-h-[300px]'}`}>
-              <div className="p-12 md:p-16">
+            <div className={`transition-all duration-700 ease-in-out ${manifestoExpanded ? 'max-h-[8000px]' : 'max-h-[300px]'}`}>
+              <div className="p-6 sm:p-8 md:p-12 lg:p-16">
                 {/* Problem Statement */}
                 <div className="mb-8">
-                  <h3 className="text-2xl font-semibold text-white mb-4">Health Data is Scattered, Controlled, and Profiting Everyone While Failing Us</h3>
+                  <h3 className="text-2xl font-semibold text-white mb-4">Our Health Data is Scattered, Controlled, and Profiting institutions</h3>
                   <p className="text-gray-200 leading-relaxed mb-6 font-light text-md">
                     For decades, our health data has been fragmented, controlled, and used without our knowledge or consent.
                   </p>

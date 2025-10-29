@@ -21,7 +21,6 @@ function Footer() {
             
             <div className="flex gap-4 mt-6 md:mt-0">
               {/* <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">X</a> */}
-              <a href="#" className="text-gray-900 hover:text-gray-900 transition-colors">Newsletter</a>
             </div>
           </div>
           

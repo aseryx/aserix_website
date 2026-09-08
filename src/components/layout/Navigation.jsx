@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowUpRight, Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { TALLY } from '../../config/tally.js';
 import AseryxLogo from '../common/AseryxLogo.jsx';
@@ -9,8 +9,6 @@ const focusRing = 'focus:outline-none focus:ring-2 focus:ring-brand-orange focus
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
-  { to: '/buyers', label: 'For AI Builders' },
-  { to: '/datasets', label: 'Datasets' },
   { to: '/blog', label: 'Blog' },
 ];
 
@@ -99,14 +97,13 @@ const Navigation = () => {
             </Link>
           ))}
           <a
-            href={TALLY.contact}
+            href={TALLY.appraisal}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors ${focusRing} px-2 py-1`}
-            aria-label="Get in touch (opens in new tab)"
+            className={`inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-brand-orange hover:text-black transition-colors ${focusRing}`}
+            aria-label="Open a license (opens in new tab)"
           >
-            Get in touch
-            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            Open a license
           </a>
           <button
             type="button"
@@ -146,16 +143,15 @@ const Navigation = () => {
             </Link>
           ))}
           <a
-            href={TALLY.contact}
+            href={TALLY.appraisal}
             target="_blank"
             rel="noopener noreferrer"
-            className={`text-base text-[var(--text-secondary)] hover:text-[var(--text-primary)] py-2 flex items-center gap-2 ${focusRing} px-2`}
+            className={`text-base font-medium py-3 px-4 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] inline-flex items-center justify-center ${focusRing}`}
             onClick={() => setIsMobileMenuOpen(false)}
             role="menuitem"
-            aria-label="Get in touch (opens in new tab)"
+            aria-label="Open a license (opens in new tab)"
           >
-            Get in touch
-            <ArrowUpRight className="w-4 h-4" />
+            Open a license
           </a>
           <button
             type="button"

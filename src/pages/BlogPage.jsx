@@ -108,7 +108,7 @@ const BlogPage = () => {
       <section className="py-20 md:py-28 px-4 md:px-8 bg-brand-orange text-black">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-display text-3xl md:text-5xl leading-tight tracking-tight mb-6">
-            Ready when the ask is real.
+            Built for the deal you already have.
           </h2>
           <p className="text-black/70 text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed">
             Writing stays writing. The product is a paid license with a locked copy and a term that ends.
@@ -118,7 +118,7 @@ const BlogPage = () => {
               href={TALLY.appraisal}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-black text-white font-medium hover:bg-white hover:text-black transition-colors text-sm uppercase tracking-wide"
+              className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-black text-white font-medium hover:bg-white hover:text-black transition-colors text-sm uppercase tracking-wide"
             >
               Open a license
               <ArrowUpRight className="w-4 h-4" />
@@ -127,7 +127,7 @@ const BlogPage = () => {
               href="https://x.com/aseryxHQ"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-10 py-4 bg-transparent border border-black/20 text-black font-medium hover:bg-black hover:text-white transition-colors text-sm uppercase tracking-wide"
+              className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-transparent border border-black/20 text-black font-medium hover:bg-black hover:text-white transition-colors text-sm uppercase tracking-wide"
             >
               Follow on X
             </a>

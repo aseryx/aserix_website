@@ -99,7 +99,7 @@ const BlogPostPage = () => {
               href={TALLY.appraisal}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-brand-orange text-black font-medium text-sm uppercase tracking-wide hover:bg-white transition-colors"
+              className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-brand-orange text-black font-medium text-sm uppercase tracking-wide hover:bg-white transition-colors"
             >
               Open a license
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

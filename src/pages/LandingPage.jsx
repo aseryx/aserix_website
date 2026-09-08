@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { ScrollReveal } from '../hooks/useScrollReveal.jsx';
 import ParticlesBackground from '../components/common/ParticlesBackground.jsx';
+import HeroVideoBackground from '../components/common/HeroVideoBackground.jsx';
 import PageLayout from '../components/layout/PageLayout.jsx';
 import RiskBand from '../components/common/RiskBand.jsx';
 import FaqItem from '../components/common/FaqItem.jsx';
@@ -81,22 +82,11 @@ const LandingPage = () => {
       {/* ===== HERO ===== */}
       <section className="relative min-h-screen flex flex-col justify-center pt-24 pb-16 md:pt-32 md:pb-24 grid-bg overflow-hidden">
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,122,77,0.06),transparent_50%)]" />
-          <img
-            src="/hero-bg-new.jpg"
-            alt=""
-            className="absolute top-0 right-0 w-full md:w-[70%] h-full object-cover object-top md:object-[center_20%] grayscale opacity-50 dark:opacity-20 mix-blend-multiply dark:mix-blend-screen"
-            style={{
-              maskImage:
-                'linear-gradient(to right, transparent 5%, black 35%), linear-gradient(to bottom, black 80%, transparent 100%)',
-              WebkitMaskImage:
-                'linear-gradient(to right, transparent 5%, black 35%), linear-gradient(to bottom, black 80%, transparent 100%)',
-              maskComposite: 'intersect',
-              WebkitMaskComposite: 'source-in',
-            }}
-            loading="eager"
-            fetchPriority="high"
-          />
+          {/* Experiment: MP4 hero background (branch experiment/video-hero-background) */}
+          <HeroVideoBackground src="/hero-bg.mp4" />
+          {/* Theme scrim — keep copy readable on the left; let more tape show on the right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F9F8F6]/88 via-[#F9F8F6]/60 to-[#F9F8F6]/25 dark:from-[#0a0a0a]/88 dark:via-[#0a0a0a]/45 dark:to-transparent" />
+          <div className="absolute inset-0 dark:bg-[radial-gradient(ellipse_at_80%_30%,rgba(235,94,40,0.08),transparent_55%)]" />
           <ParticlesBackground />
         </div>
 
@@ -109,7 +99,7 @@ const LandingPage = () => {
           </h1>
 
           <p
-            className="text-lg md:text-xl text-[#6B7280] dark:text-gray-400 leading-relaxed mb-10 max-w-xl animate-fade-up delay-200 opacity-0"
+            className="text-lg md:text-xl text-[#4B5563] dark:text-gray-200 leading-relaxed mb-10 max-w-xl animate-fade-up delay-200 opacity-0"
             style={{ animationFillMode: 'forwards' }}
           >
             Pick the file or the tables. Lock a copy. Get paid. Open access for a set term.
@@ -123,14 +113,14 @@ const LandingPage = () => {
               href={TALLY.appraisal}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-brand-orange text-black font-medium tracking-wide text-sm uppercase hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-brand-orange focus:ring-offset-2 focus:ring-offset-[#F9F8F6] dark:focus:ring-offset-[#0a0a0a]"
+              className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-brand-orange text-black font-medium tracking-wide text-sm uppercase hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-brand-orange focus:ring-offset-2 focus:ring-offset-[#F9F8F6] dark:focus:ring-offset-[#0a0a0a]"
             >
               Open a license
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="#how-it-works"
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-transparent border border-[#E5E5E5] dark:border-[#333] text-[#1A1A1A] dark:text-white font-medium tracking-wide text-sm uppercase hover:bg-[#F3F4F6] dark:hover:bg-[#1A1A1A] transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+              className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-transparent border border-[#E5E5E5] dark:border-[#333] text-[#1A1A1A] dark:text-white font-medium tracking-wide text-sm uppercase hover:bg-[#F3F4F6] dark:hover:bg-[#1A1A1A] transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
             >
               See how it works
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -138,13 +128,13 @@ const LandingPage = () => {
           </div>
 
           <div
-            className="animate-fade-up delay-400 opacity-0 mt-8 flex flex-wrap items-center gap-3 text-[#6B7280] dark:text-gray-500"
+            className="animate-fade-up delay-400 opacity-0 mt-8 flex flex-wrap items-center gap-3 text-[#4B5563] dark:text-gray-300"
             style={{ animationFillMode: 'forwards' }}
           >
             <span className="text-xs tracking-wide">A buyer</span>
-            <span className="w-px h-3 bg-[#D1D5DB] dark:bg-gray-700" />
+            <span className="w-px h-3 bg-[#9CA3AF] dark:bg-gray-500" />
             <span className="text-xs tracking-wide">File or tables</span>
-            <span className="w-px h-3 bg-[#D1D5DB] dark:bg-gray-700" />
+            <span className="w-px h-3 bg-[#9CA3AF] dark:bg-gray-500" />
             <span className="text-xs tracking-wide">Term that ends</span>
           </div>
         </div>
@@ -268,13 +258,13 @@ const LandingPage = () => {
       <section className="py-20 md:py-28 px-4 md:px-8 bg-brand-orange text-black">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-display text-3xl md:text-5xl lg:text-6xl leading-tight tracking-tight mb-10">
-            Ready when the buyer is real.
+            Built for the deal you already have.
           </h2>
           <a
             href={TALLY.appraisal}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 px-10 py-4 bg-black text-white font-medium hover:bg-white hover:text-black transition-colors text-sm uppercase tracking-wide"
+            className="group inline-flex items-center gap-3 px-10 py-4 rounded-full bg-black text-white font-medium hover:bg-white hover:text-black transition-colors text-sm uppercase tracking-wide"
           >
             Open a license
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

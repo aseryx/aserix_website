@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { ArrowUpRight, Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { TALLY } from '../../config/tally.js';
 import AseryxLogo from '../common/AseryxLogo.jsx';
@@ -11,6 +11,12 @@ const NAV_LINKS = [
   { to: '/', label: 'Home' },
   { to: '/blog', label: 'Blog' },
 ];
+
+/** Placeholder until the app auth URLs ship */
+const AUTH = {
+  login: '#',
+  signup: '#',
+};
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -83,6 +89,9 @@ const Navigation = () => {
         : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
     }`;
 
+  const loginPill = `inline-flex items-center justify-center gap-2 text-sm font-medium px-4 py-2 rounded-full border border-[var(--border-color)] text-[var(--text-primary)] hover:border-brand-orange hover:text-brand-orange transition-colors ${focusRing}`;
+  const signupPill = `inline-flex items-center justify-center gap-2 text-sm font-medium px-4 py-2 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-brand-orange hover:text-black transition-colors ${focusRing}`;
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-700 ${scrolled || isMobileMenuOpen ? 'bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-[var(--border-color)]' : ''}`}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6 flex items-center justify-between">
@@ -97,13 +106,20 @@ const Navigation = () => {
             </Link>
           ))}
           <a
-            href={TALLY.appraisal}
+            href={TALLY.contact}
             target="_blank"
             rel="noopener noreferrer"
-            className={`inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-brand-orange hover:text-black transition-colors ${focusRing}`}
-            aria-label="Open a license (opens in new tab)"
+            className={`group flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors ${focusRing} px-2 py-1`}
+            aria-label="Get in touch (opens in new tab)"
           >
-            Open a license
+            Get in touch
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
+          <a href={AUTH.login} className={loginPill} aria-label="Log in">
+            Log in
+          </a>
+          <a href={AUTH.signup} className={signupPill} aria-label="Sign up">
+            Sign up
           </a>
           <button
             type="button"
@@ -143,15 +159,34 @@ const Navigation = () => {
             </Link>
           ))}
           <a
-            href={TALLY.appraisal}
+            href={TALLY.contact}
             target="_blank"
             rel="noopener noreferrer"
+            className={`text-base text-[var(--text-secondary)] hover:text-[var(--text-primary)] py-2 flex items-center gap-2 ${focusRing} px-2`}
+            onClick={() => setIsMobileMenuOpen(false)}
+            role="menuitem"
+            aria-label="Get in touch (opens in new tab)"
+          >
+            Get in touch
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+          <a
+            href={AUTH.login}
+            className={`text-base font-medium py-3 px-4 rounded-full border border-[var(--border-color)] text-[var(--text-primary)] inline-flex items-center justify-center ${focusRing}`}
+            onClick={() => setIsMobileMenuOpen(false)}
+            role="menuitem"
+            aria-label="Log in"
+          >
+            Log in
+          </a>
+          <a
+            href={AUTH.signup}
             className={`text-base font-medium py-3 px-4 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] inline-flex items-center justify-center ${focusRing}`}
             onClick={() => setIsMobileMenuOpen(false)}
             role="menuitem"
-            aria-label="Open a license (opens in new tab)"
+            aria-label="Sign up"
           >
-            Open a license
+            Sign up
           </a>
           <button
             type="button"

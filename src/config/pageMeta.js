@@ -1,9 +1,9 @@
 /** Per-route SEO metadata used by usePageMeta and the prerender script */
 export const PAGE_META = {
   '/': {
-    title: 'Aseryx | Data Verification & Assetization Protocol',
+    title: 'Aseryx · Data licensing for owners with a buyer',
     description:
-      'The data verification protocol for AI. Institutions assetize sensitive data for AI builders. Quality verified. Data never moves. 80 to 85% revenue share.',
+      'Pick the file or the tables. Lock a copy. Get paid. Open access for a set term.',
   },
   '/partners': {
     title: 'Aseryx | For Data Providers',

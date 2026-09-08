@@ -23,7 +23,7 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/partners" element={<PartnersPage />} />
+      <Route path="/partners" element={<Navigate to="/" replace />} />
       <Route path="/buyers" element={<BuyersPage />} />
       <Route path="/privacy" element={<PrivacyPolicyPage />} />
       <Route path="/terms" element={<TermsOfUsePage />} />

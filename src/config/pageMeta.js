@@ -1,14 +1,12 @@
 /** Per-route SEO metadata used by usePageMeta and the prerender script */
 export const PAGE_META = {
   '/': {
-    title: 'Aseryx | Data Verification & Assetization Protocol',
-    description:
-      'The data verification protocol for AI. Institutions assetize sensitive data for AI builders. Quality verified. Data never moves. 80 to 85% revenue share.',
+    title: 'Aseryx · Data licensing for owners with a buyer',
+    description: 'Pick the file or the tables. Lock a copy. Get paid. Open access for a set term.',
   },
   '/partners': {
-    title: 'Aseryx | For Data Providers',
-    description:
-      'Assetize proprietary datasets without surrendering custody. Verified quality scores, 80 to 85% revenue share, and full approval control.',
+    title: 'Aseryx · Data licensing for owners with a buyer',
+    description: 'Pick the file or the tables. Lock a copy. Get paid. Open access for a set term.',
   },
   '/buyers': {
     title: 'Aseryx | For AI Builders',
@@ -21,9 +19,8 @@ export const PAGE_META = {
       'Browse datasets that passed Aseryx two-layer cryptographic appraisal. Provenance proven. Quality scored. No raw data transmitted.',
   },
   '/blog': {
-    title: 'Aseryx | Blog',
-    description:
-      'Thinking on data verification, AI privacy, data assetization, and institutional data economics.',
+    title: 'Aseryx · Blog',
+    description: 'Writing on private data licenses, custody honesty, and what a quality check is not.',
   },
   '/privacy': {
     title: 'Aseryx | Privacy Policy',

@@ -9,8 +9,6 @@ const focusRing = 'focus:outline-none focus:ring-2 focus:ring-brand-orange focus
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
-  { to: '/buyers', label: 'For AI Builders' },
-  { to: '/datasets', label: 'Datasets' },
   { to: '/blog', label: 'Blog' },
 ];
 
@@ -99,13 +97,13 @@ const Navigation = () => {
             </Link>
           ))}
           <a
-            href={TALLY.contact}
+            href={TALLY.appraisal}
             target="_blank"
             rel="noopener noreferrer"
             className={`group flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors ${focusRing} px-2 py-1`}
-            aria-label="Get in touch (opens in new tab)"
+            aria-label="Open a license (opens in new tab)"
           >
-            Get in touch
+            Open a license
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
           <button
@@ -146,15 +144,15 @@ const Navigation = () => {
             </Link>
           ))}
           <a
-            href={TALLY.contact}
+            href={TALLY.appraisal}
             target="_blank"
             rel="noopener noreferrer"
             className={`text-base text-[var(--text-secondary)] hover:text-[var(--text-primary)] py-2 flex items-center gap-2 ${focusRing} px-2`}
             onClick={() => setIsMobileMenuOpen(false)}
             role="menuitem"
-            aria-label="Get in touch (opens in new tab)"
+            aria-label="Open a license (opens in new tab)"
           >
-            Get in touch
+            Open a license
             <ArrowUpRight className="w-4 h-4" />
           </a>
           <button

@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
-import PartnersPage from './pages/PartnersPage';
 import BuyersPage from './pages/BuyersPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsOfUsePage from './pages/TermsOfUsePage';
@@ -23,7 +22,7 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/partners" element={<PartnersPage />} />
+      <Route path="/partners" element={<Navigate to="/" replace />} />
       <Route path="/buyers" element={<BuyersPage />} />
       <Route path="/privacy" element={<PrivacyPolicyPage />} />
       <Route path="/terms" element={<TermsOfUsePage />} />

@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { ScrollReveal } from '../hooks/useScrollReveal.jsx';
 import PageLayout from '../components/layout/PageLayout.jsx';
+import ProductPlaceholder from '../components/common/ProductPlaceholder.jsx';
 import BLOG_POSTS from '../data/blog/index.js';
 import { formatDate } from '../utils/formatDate.js';
 import { usePageMeta } from '../hooks/usePageMeta.jsx';
 import { PAGE_META } from '../config/pageMeta.js';
+import { TALLY } from '../config/tally.js';
 
 const BlogPage = () => {
   const featured = BLOG_POSTS.find((p) => p.featured);
@@ -15,97 +17,121 @@ const BlogPage = () => {
 
   return (
     <PageLayout>
-      {featured && (
-        <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 px-4 md:px-8 grid-bg">
-          <div className="max-w-7xl mx-auto relative z-10">
-            <p className="font-mono text-brand-orange text-xs tracking-widest uppercase mb-12 animate-fade-in">Blog</p>
+      {/* Hero / featured */}
+      <section className="relative pt-28 pb-16 md:pt-36 md:pb-24 px-4 md:px-8 grid-bg overflow-hidden">
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_right,rgba(255,122,77,0.06),transparent_45%)]" />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <p className="font-mono text-brand-orange text-xs tracking-widest uppercase mb-10 md:mb-14">Blog</p>
 
+          {featured && (
             <Link to={`/blog/${featured.slug}`} className="group block">
-              <div className="section-divider pt-8 md:pt-12">
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="font-mono text-xs text-[var(--text-secondary)]">{formatDate(featured.date)}</span>
-                  <span className="w-1 h-1 rounded-full bg-[var(--text-secondary)]" />
-                  <span className="font-mono text-xs text-[var(--text-secondary)]">{featured.readTime}</span>
-                  <span className="w-1 h-1 rounded-full bg-[var(--text-secondary)]" />
-                  <span className="font-mono text-xs text-brand-orange uppercase tracking-wider">{featured.category}</span>
+              <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+                <div className="lg:col-span-6 section-divider pt-8 md:pt-10">
+                  <div className="flex flex-wrap items-center gap-3 mb-6">
+                    <span className="font-mono text-xs text-[var(--text-secondary)]">{formatDate(featured.date)}</span>
+                    <span className="w-1 h-1 rounded-full bg-[var(--text-secondary)]" />
+                    <span className="font-mono text-xs text-[var(--text-secondary)]">{featured.readTime}</span>
+                    <span className="w-1 h-1 rounded-full bg-[var(--text-secondary)]" />
+                    <span className="font-mono text-xs text-brand-orange uppercase tracking-wider">
+                      {featured.category}
+                    </span>
+                  </div>
+
+                  <h1 className="font-display text-3xl sm:text-4xl md:text-5xl leading-[1.08] tracking-tight mb-6 group-hover:text-brand-orange transition-colors duration-300">
+                    {featured.title}
+                  </h1>
+
+                  <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-8 max-w-xl">
+                    {featured.excerpt}
+                  </p>
+
+                  <span className="inline-flex items-center gap-2 text-brand-orange text-sm font-medium group-hover:gap-3 transition-all">
+                    Read
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
                 </div>
 
-                <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight max-w-4xl mb-6 group-hover:text-brand-orange transition-colors duration-300">
-                  {featured.title}
-                </h1>
-
-                <p className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed max-w-2xl mb-8">
-                  {featured.excerpt}
-                </p>
-
-                <span className="inline-flex items-center gap-2 text-brand-orange text-sm font-medium group-hover:gap-3 transition-all">
-                  Read article
-                  <ArrowRight className="w-4 h-4" />
-                </span>
+                <div className="lg:col-span-6">
+                  <ProductPlaceholder
+                    label="Featured · still"
+                    caption="Article cover · drop an image here"
+                    aspect="video"
+                  />
+                </div>
               </div>
             </Link>
-          </div>
-        </section>
-      )}
+          )}
+        </div>
+      </section>
 
+      {/* Index list — Linear changelog rhythm */}
       {rest.length > 0 && (
-        <section className="py-16 md:py-24 px-4 md:px-8 grid-bg">
-          <div className="max-w-7xl mx-auto relative z-10">
-            <div className="section-divider pt-8 md:pt-12 mb-12">
-              <p className="font-mono text-brand-orange text-xs tracking-widest uppercase mb-4">Recent</p>
+        <section className="py-12 md:py-20 px-4 md:px-8 grid-bg">
+          <div className="max-w-7xl mx-auto">
+            <div className="section-divider pt-8 mb-2">
+              <p className="font-mono text-brand-orange text-xs tracking-widest uppercase mb-8">More posts</p>
             </div>
 
-            <div className="space-y-0">
+            <ul className="divide-y divide-[var(--border-color)] border-b border-[var(--border-color)]">
               {rest.map((post, index) => (
-                <ScrollReveal key={post.slug} delay={index * 100}>
-                  <Link to={`/blog/${post.slug}`} className="group block section-divider pt-8 pb-8">
-                    <div className="flex items-center gap-4 mb-4">
-                      <span className="font-mono text-xs text-[var(--text-secondary)]">{formatDate(post.date)}</span>
-                      <span className="w-1 h-1 rounded-full bg-[var(--text-secondary)]" />
-                      <span className="font-mono text-xs text-brand-orange uppercase tracking-wider">{post.category}</span>
-                    </div>
-                    <h3 className="font-display text-xl md:text-2xl lg:text-3xl leading-tight tracking-tight mb-3 group-hover:text-brand-orange transition-colors duration-300 max-w-3xl">
-                      {post.title}
-                    </h3>
-                    <p className="text-[var(--text-secondary)] text-sm md:text-base leading-relaxed max-w-2xl">
-                      {post.excerpt}
-                    </p>
-                  </Link>
-                </ScrollReveal>
+                <li key={post.slug}>
+                  <ScrollReveal delay={index * 80}>
+                    <Link
+                      to={`/blog/${post.slug}`}
+                      className="group grid sm:grid-cols-12 gap-3 sm:gap-8 py-8 md:py-10 items-baseline"
+                    >
+                      <div className="sm:col-span-3 flex flex-wrap items-center gap-3">
+                        <span className="font-mono text-xs text-[var(--text-secondary)]">{formatDate(post.date)}</span>
+                        <span className="hidden sm:inline w-1 h-1 rounded-full bg-[var(--text-secondary)]" />
+                        <span className="font-mono text-[10px] text-brand-orange uppercase tracking-wider">
+                          {post.category}
+                        </span>
+                      </div>
+                      <div className="sm:col-span-9">
+                        <h2 className="font-display text-xl md:text-2xl leading-tight tracking-tight mb-2 group-hover:text-brand-orange transition-colors duration-300 max-w-3xl">
+                          {post.title}
+                        </h2>
+                        <p className="text-[var(--text-secondary)] text-sm md:text-base leading-relaxed max-w-2xl">
+                          {post.excerpt}
+                        </p>
+                      </div>
+                    </Link>
+                  </ScrollReveal>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
       )}
 
-      <section className="py-16 md:py-24 px-4 md:px-8 grid-bg">
-        <div className="max-w-4xl mx-auto relative z-10 text-center section-divider pt-12 md:pt-16">
-          <ScrollReveal>
-            <h2 className="font-display text-3xl md:text-4xl leading-tight tracking-tight mb-6">
-              Stay up to date
-            </h2>
-            <p className="text-[var(--text-secondary)] text-lg mb-10 max-w-xl mx-auto">
-              Follow our thinking on data verification, AI privacy, and assetization infrastructure.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="https://x.com/aseryxHQ"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-4 bg-brand-orange text-black font-medium hover:bg-white transition-colors text-sm uppercase tracking-wide"
-              >
-                Follow on X
-              </a>
-              <a
-                href="https://linkedin.com/company/aseryx"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-4 bg-transparent border border-[var(--border-color)] text-[var(--text-primary)] font-medium hover:bg-[var(--text-primary)] hover:text-[var(--bg-primary)] transition-colors text-sm uppercase tracking-wide"
-              >
-                Follow on LinkedIn
-              </a>
-            </div>
-          </ScrollReveal>
+      {/* Close — product door, not assetize */}
+      <section className="py-20 md:py-28 px-4 md:px-8 bg-brand-orange text-black">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="font-display text-3xl md:text-5xl leading-tight tracking-tight mb-6">
+            Built for the deal you already have.
+          </h2>
+          <p className="text-black/70 text-base md:text-lg mb-10 max-w-xl mx-auto leading-relaxed">
+            Writing stays writing. The product is a paid license with a locked copy and a term that ends.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href={TALLY.appraisal}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-black text-white font-medium hover:bg-white hover:text-black transition-colors text-sm uppercase tracking-wide"
+            >
+              Open a license
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+            <a
+              href="https://x.com/aseryxHQ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-transparent border border-black/20 text-black font-medium hover:bg-black hover:text-white transition-colors text-sm uppercase tracking-wide"
+            >
+              Follow on X
+            </a>
+          </div>
         </div>
       </section>
     </PageLayout>

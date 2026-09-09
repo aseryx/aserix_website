@@ -9,10 +9,14 @@ const focusRing = 'focus:outline-none focus:ring-2 focus:ring-brand-orange focus
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
-  { to: '/buyers', label: 'For AI Builders' },
-  { to: '/datasets', label: 'Datasets' },
   { to: '/blog', label: 'Blog' },
 ];
+
+/** Placeholder until the app auth URLs ship */
+const AUTH = {
+  login: '#',
+  signup: '#',
+};
 
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -85,6 +89,9 @@ const Navigation = () => {
         : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
     }`;
 
+  const loginPill = `inline-flex items-center justify-center gap-2 text-sm font-medium px-4 py-2 rounded-full border border-[var(--border-color)] text-[var(--text-primary)] hover:border-brand-orange hover:text-brand-orange transition-colors ${focusRing}`;
+  const signupPill = `inline-flex items-center justify-center gap-2 text-sm font-medium px-4 py-2 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-brand-orange hover:text-black transition-colors ${focusRing}`;
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-40 transition-all duration-700 ${scrolled || isMobileMenuOpen ? 'bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-[var(--border-color)]' : ''}`}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6 flex items-center justify-between">
@@ -107,6 +114,12 @@ const Navigation = () => {
           >
             Get in touch
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
+          <a href={AUTH.login} className={loginPill} aria-label="Log in">
+            Log in
+          </a>
+          <a href={AUTH.signup} className={signupPill} aria-label="Sign up">
+            Sign up
           </a>
           <button
             type="button"
@@ -156,6 +169,24 @@ const Navigation = () => {
           >
             Get in touch
             <ArrowUpRight className="w-4 h-4" />
+          </a>
+          <a
+            href={AUTH.login}
+            className={`text-base font-medium py-3 px-4 rounded-full border border-[var(--border-color)] text-[var(--text-primary)] inline-flex items-center justify-center ${focusRing}`}
+            onClick={() => setIsMobileMenuOpen(false)}
+            role="menuitem"
+            aria-label="Log in"
+          >
+            Log in
+          </a>
+          <a
+            href={AUTH.signup}
+            className={`text-base font-medium py-3 px-4 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] inline-flex items-center justify-center ${focusRing}`}
+            onClick={() => setIsMobileMenuOpen(false)}
+            role="menuitem"
+            aria-label="Sign up"
+          >
+            Sign up
           </a>
           <button
             type="button"
